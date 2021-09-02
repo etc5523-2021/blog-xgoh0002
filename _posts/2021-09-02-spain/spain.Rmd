@@ -22,12 +22,12 @@ library(gt)
 library(lubridate)
 ```
 
-# Data Description
+#### Data Description
 
-## Data Source
+# Data Source
 The dataset used for this analysis is extracted from the [github repository](https://github.com/owid/covid-19-data/tree/master/public/data) of Our World in Data and the [github repository](https://github.com/RamiKrispin/coronavirus) of Rami Krispin. The first data extracted is about worldwide covid-19 confirmed cases number and the second data extracted is about worldwide vaccination status. However, we will only focus on the data relevant with SPAIN. The original datasets were maintained by [Our World in Data](https://ourworldindata.org/coronavirus) and will be updated daily throughout the period of the pandemic.
 
-## Date Structure
+# Date Structure
 Below are the data dictionary for the datasets related to this analysis.
 
 **dataset1**
@@ -53,7 +53,7 @@ Below are the data dictionary for the datasets related to this analysis.
 
 
 
-## Acknowledgment
+# Acknowledgment
 As mentioned from the original data source, there were negative values in cases and deaths from the first data, it can sometimes appear when a country corrects historical data, because it had previously overestimated the number of cases/deaths.
 
 
@@ -62,9 +62,13 @@ data <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data
 ```
 
 
-```{r vaccine, message = FALSE}
+```{r vaccine, message = FALSE, echo =FALSE}
 vaccine <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/covid19_vaccine.csv")
 ```
+
+# Data Story
+
+
 
 ```{r spain, echo=FALSE}
 dataset1 <- data %>%
