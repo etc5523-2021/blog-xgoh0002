@@ -3,7 +3,7 @@ title: "Spain"
 description: |
   A short description of the post.
 author:
-  - name: Nora Jones
+  - name: Xueqi Goh
     url: https://example.com/norajones
 date: 09-02-2021
 output:
@@ -11,10 +11,43 @@ output:
     self_contained: false
 ---
 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{r}
+options(repos = list(CRAN="http://cran.rstudio.com/"))
 ```
+
+
+```{r message=FALSE}
+install.packages("coronavirus")
+```
+
+```{r}
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(coronavirus)
+```
+
+*Data Description*
+
+
+```{r data, echo=FALSE}
+data("coronavirus")
+```
+
+
+```{r, echo=FALSE}
+spain <- coronavirus %>%
+  select(-province, -long, -lat) %>%
+  filter(country == "Spain") 
+```
+
+
+
+```{r}
+DT::datatable(spain)
+```
+
+
 
 Distill is a publication format for scientific and technical writing, native to the web.
 
