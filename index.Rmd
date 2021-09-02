@@ -1,13 +1,5 @@
 ---
-title: "My first blog"
-subtittle: "ETC 5523"
-author: "XUEQI GOH"
-date: "02/09/2021"
-output: html_document
+title: "ETC 5523 Blog"
+site: distill::distill_website
+listing: posts
 ---
-
-```{css, echo = FALSE}
-.author {
-  font-family: cursive;
-}
-```

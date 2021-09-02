@@ -1,0 +1,20 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "About this blog",
+      "description": "Some additional details about the blog",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-09-02T13:13:49+10:00"
+    },
+    {
+      "path": "index.html",
+      "title": "ETC 5523 Blog",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-09-02T13:16:09+10:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}
