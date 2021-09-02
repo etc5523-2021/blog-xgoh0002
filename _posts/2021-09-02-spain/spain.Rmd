@@ -11,40 +11,40 @@ output:
     self_contained: false
 ---
 
-```{r}
-options(repos = list(CRAN="http://cran.rstudio.com/"))
-```
 
-
-```{r message=FALSE}
-install.packages("coronavirus")
-```
 
 ```{r}
 library(dplyr)
 library(tidyverse)
 library(ggplot2)
-library(coronavirus)
+library(readr)
 ```
 
-*Data Description*
+# Data Description
+
+explain na
 
 
-```{r data, echo=FALSE}
-data("coronavirus")
+```{r data, echo=FALSE, message=FALSE}
+data <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/owid-covid-data.csv")
 ```
 
 
 ```{r, echo=FALSE}
-spain <- coronavirus %>%
-  select(-province, -long, -lat) %>%
-  filter(country == "Spain") 
+spain <- data %>%
+  filter(location == "Spain") %>%
+  select(date, total_cases, new_cases, total_deaths, new_deaths, icu_patients) 
+  spain[is.na(spain)] = 0
 ```
 
 
 
-```{r}
-DT::datatable(spain)
+
+```{r Table1, echo=FALSE}
+DT::datatable(spain, class = 'cell-border stripe', colnames = c('Date', 'Total Cases', 'New Cases', 'Total Deaths', 'New Deaths', 'ICU patients'), caption = 'Covid-19 Situation in Spain from Feb 2020 to Sep 2021', filter = 'top', options = list( pageLength = 10)) 
+  
+
+
 ```
 
 
@@ -53,4 +53,6 @@ Distill is a publication format for scientific and technical writing, native to 
 
 Learn more about using Distill at <https://rstudio.github.io/distill>.
 
+#Reference
+Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci Data 7, 345 (2020)
 
