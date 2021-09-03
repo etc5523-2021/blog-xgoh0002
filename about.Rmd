@@ -2,6 +2,7 @@
 title: "About Stephanie's blog"
 description: |
   "Even though you're growing up, you should never stop having fun." -Nina Dobrev.
+
 ---
 
 ```{r setup, include=FALSE}
