@@ -2,7 +2,31 @@
 title: "About Stephanie's blog"
 description: |
   "Even though you're growing up, you should never stop having fun." -Nina Dobrev.
+theme: null
+css: "style.css"
 ---
+
+
+```{css, echo=FALSE}
+.distill-site-header {
+  background-color: rosybrown;
+  font-color: white;
+  font-family: cursive;
+  font-size: 13pt;
+}
+```
+
+```{css, echo=FALSE}
+h1 {
+ color: lightcoral;
+}
+```
+
+```{css, echo=FALSE}
+body{
+  background-color: papayawhip
+}
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)

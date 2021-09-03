@@ -2,4 +2,27 @@
 title: "My Blog"
 site: distill::distill_website
 listing: posts
+theme: null
+css: "style.css"
 ---
+
+```{css, echo=FALSE}
+.distill-site-header {
+  background-color: rosybrown;
+  font-color: white;
+  font-family: cursive;
+  font-size: 13pt;
+}
+```
+
+```{css, echo=FALSE}
+h1 {
+ color: lightcoral;
+}
+```
+
+```{css, echo=FALSE}
+body{
+  background-color: papayawhip
+}
+```
