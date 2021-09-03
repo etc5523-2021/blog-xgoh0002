@@ -1,7 +1,7 @@
 name: "blog-xgoh0002"
-title: "ETC 5523 Blog"
+title: "Stay with Stephanie"
 description: |
-  ETC 5523 Blog
+  Stephanie's Blog
 output_dir: "_site"
 navbar:
   right:
@@ -10,3 +10,4 @@ navbar:
     - text: "About"
       href: about.html
 output: distill::distill_article
+
