@@ -1,9 +1,12 @@
 ---
-title: "About this blog"
+title: "About Stephanie's blog"
 description: |
-  Some additional details about the blog
+  "Even though you're growing up, you should never stop having fun." -Nina Dobrev.
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+Hi peeps! I'm a Malaysian currently studying in Monash Clayton, Melbourne.
+I'm enrolled in Master of Business Analytics. I would say it is really challenging for me but I enjoyed each bits and pieces of it. I would like to share more interesting stuffs on this blog in the future, so stay tuned!

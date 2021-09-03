@@ -1,26 +1,19 @@
 ---
-title: "Welcome to ETC 5523 Blog"
+title: "Welcome to Stephanie's Blog"
 description: |
-  Welcome to our new blog, ETC 5523 Blog. We hope you enjoy 
-  reading what we have to say!
+  "If you cannot do great things, do small things in a great way." -Napoleon Hill
 author:
-  - name: Nora Jones 
+  - name: Xueqi Goh 
     url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
+    affiliation: Linkedin
+    affiliation_url: linkedin.com/in/xueqi-goh-b244811b1
 date: 09-02-2021
 output:
   distill::distill_article:
     self_contained: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
 
-# Learn more about creating blogs with Distill at:
-# https://rstudio.github.io/distill/blog.html
-
-```
 
 
 

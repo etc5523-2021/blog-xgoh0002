@@ -1,6 +1,7 @@
 ---
 title: "😷 Coronavirus in Spain 🇪🇸"
 description: |
+  It's the remix to ignition Coronavirus edition. I miss all my friends and can't get out of the kithchen.
   A simple analysis on the COVID-19 situation in Spain.
 author:
   - name: Xueqi Goh

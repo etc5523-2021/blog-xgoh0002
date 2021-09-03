@@ -2,18 +2,18 @@
   "articles": [
     {
       "path": "about.html",
-      "title": "About this blog",
-      "description": "Some additional details about the blog",
+      "title": "About Stephanie's blog",
+      "description": "\"Even though you're growing up, you should never stop having fun.\" -Nina Dobrev.",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2021-09-02T13:13:49+10:00"
+      "contents": "\nHi peeps! I’m a Malaysian currently studying in Monash Clayton, Melbourne. I’m enrolled in Master of Business Analytics. I would say it is really challenging for me but I enjoyed each bits and pieces of it. I would like to share more interesting stuffs on this blog in the future, so stay tuned!\n\n\n\n",
+      "last_modified": "2021-09-03T14:53:18+10:00"
     },
     {
       "path": "index.html",
       "title": "ETC 5523 Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-09-02T13:16:09+10:00"
+      "last_modified": "2021-09-03T14:51:37+10:00"
     }
   ],
   "collections": ["posts/posts.json"]
