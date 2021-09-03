@@ -1,5 +1,5 @@
 ---
-title: "Spain"
+title: "😷 Coronavirus in Spain 🇪🇸"
 description: |
   A simple analysis on the COVID-19 situation in Spain.
 author:
@@ -13,7 +13,7 @@ output:
 
 
 
-```{r}
+```{r, echo = FALSE}
 library(dplyr)
 library(tidyverse)
 library(ggplot2)
@@ -22,12 +22,12 @@ library(gt)
 library(lubridate)
 ```
 
-#### Data Description
+# Data Description 📖
 
-# Data Source
+#### Data Source
 The dataset used for this analysis is extracted from the [github repository](https://github.com/owid/covid-19-data/tree/master/public/data) of Our World in Data and the [github repository](https://github.com/RamiKrispin/coronavirus) of Rami Krispin. The first data extracted is about worldwide covid-19 confirmed cases number and the second data extracted is about worldwide vaccination status. However, we will only focus on the data relevant with SPAIN. The original datasets were maintained by [Our World in Data](https://ourworldindata.org/coronavirus) and will be updated daily throughout the period of the pandemic.
 
-# Date Structure
+#### Date Structure
 Below are the data dictionary for the datasets related to this analysis.
 
 **dataset1**
@@ -53,7 +53,7 @@ Below are the data dictionary for the datasets related to this analysis.
 
 
 
-# Acknowledgment
+#### Acknowledgment
 As mentioned from the original data source, there were negative values in cases and deaths from the first data, it can sometimes appear when a country corrects historical data, because it had previously overestimated the number of cases/deaths.
 
 
@@ -66,9 +66,11 @@ data <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data
 vaccine <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/covid19_vaccine.csv")
 ```
 
-# Data Story
+
+# Findings 🔍
 
 
+As the pandemic continues to spread around the world, Spain has been one of the most affected countries. Table 1 shows the Covid-19 situation in Spain from Feb 2020 to Sep 2021. This table records the daily new and total Coronavirus cases, daily new and total death Coronavirus cases in Spain and the daily number of patients admitted into ICU due to Coronavirus in Spain. The filter can assist in data exploration. 
 
 ```{r spain, echo=FALSE}
 dataset1 <- data %>%
@@ -79,11 +81,17 @@ dataset1 <- data %>%
 ```
 
 
-```{r Table1, echo=FALSE}
+```{r table1, echo=FALSE}
 DT::datatable(dataset1, class = 'cell-border stripe', colnames = c('Date', 'Total Cases', 'New Cases', 'Total Deaths', 'New Deaths', 'ICU patients'), caption = 'Covid-19 Situation in Spain from Feb 2020 to Sep 2021', filter = 'top', options = list( pageLength = 10)) 
 ```
 
-```{r}
+
+# Vaccination Status 💉
+
+While healthcare providers are fighting Coronavirus to safeguard the lives of everyone affected, researchers are racing to develop such a vaccine to save lives. 
+
+
+```{r extract date, echo=FALSE}
 vaccine <- vaccine
 myDate = as.POSIXct(vaccine$date)  
 month <- format(myDate,"%m")
@@ -98,7 +106,7 @@ vaccine$Month <- mymonths[ vaccine$Month]
 ```
 
 
-```{r}
+```{r dataset2, echo=FALSE}
 dataset2 <- vaccine %>%
   filter(country_region == "Spain") %>%
   select(Month, doses_admin, people_partially_vaccinated, people_fully_vaccinated) %>%
@@ -111,7 +119,7 @@ dataset2 <- vaccine %>%
 ```
 
 
-```{r}
+```{r table2, echo=FALSE}
 gt(dataset2) %>%
   tab_header(title = "COVID-19 Vaccination Status in Spain from Jan 2021 to Aug 2021",
              subtitle = "Arranged by Sum of Total Vaccine Administered (High to Low)") %>%
@@ -123,6 +131,17 @@ gt(dataset2) %>%
   )
 ```
 
+```{r plot1, echo=FALSE}
+gg <- ggplot(dataset2, aes(x = reorder(Month, -doses_admin),
+                     y = doses_admin)) +
+  geom_bar(stat = "identity", fill="#00abff") +
+  theme_bw() +
+  xlab("Month") +
+  ylab("Number of vaccine administered") +
+  ggtitle("The number of vaccine administered in Spain in 2021")
+plotly::ggplotly(gg)
+```
+
 
 
 Distill is a publication format for scientific and technical writing, native to the web.
@@ -130,5 +149,8 @@ Distill is a publication format for scientific and technical writing, native to 
 Learn more about using Distill at <https://rstudio.github.io/distill>.
 
 #Reference
+
 Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci Data 7, 345 (2020)
+
+Domínguez‐Gil, B., Coll, E., Fernández‐Ruiz, M., Corral, E., Del Río, F., Zaragoza, R., ... & Hernández, D. (2020). COVID‐19 in Spain: Transplantation in the midst of the pandemic. American journal of transplantation, 20(9), 2593-2598.
 
