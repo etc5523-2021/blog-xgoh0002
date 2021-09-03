@@ -30,7 +30,7 @@ The dataset used for this analysis is extracted from the [github repository](htt
 #### Date Structure
 Below are the data dictionary for the datasets related to this analysis.
 
-**dataset1**
+**Dataset1**
 
 |variable                  |class     |description                      |
 |:------------------------:|:--------:|:-------------------------------:|
@@ -42,7 +42,7 @@ Below are the data dictionary for the datasets related to this analysis.
 |icu_patients              |double    |Number of patients in ICU        |
 
 
-**dataset2**
+**Dataset2**
 
 |variable                    |class     |description                      |
 |:--------------------------:|:--------:|:-------------------------------:|
@@ -54,7 +54,7 @@ Below are the data dictionary for the datasets related to this analysis.
 
 
 #### Acknowledgment
-As mentioned from the original data source, there were negative values in cases and deaths from the first data, it can sometimes appear when a country corrects historical data, because it had previously overestimated the number of cases/deaths.
+As mentioned from the original data source, there were negative values in cases and deaths from the first data, it can sometimes appear when a country corrects historical data because it had previously overestimated the number of cases/deaths.
 
 
 ```{r data, echo=FALSE, message=FALSE}
@@ -70,7 +70,7 @@ vaccine <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/d
 # Findings 🔍
 
 
-As the pandemic continues to spread around the world, Spain has been one of the most affected countries. Table 1 shows the Covid-19 situation in Spain from Feb 2020 to Sep 2021. This table records the daily new and total Coronavirus cases, daily new and total death Coronavirus cases in Spain and the daily number of patients admitted into ICU due to Coronavirus in Spain. The filter can assist in data exploration. 
+As the pandemic continues to spread around the world, Spain has been one of the most affected countries. Table 1 shows the Covid-19 situation in Spain from Feb 2020 to Sep 2021. This table records the daily new and total Coronavirus cases, daily new and total death Coronavirus cases in Spain, and the daily number of patients admitted into ICU due to Coronavirus in Spain. The filter can assist in data exploration. 
 
 ```{r spain, echo=FALSE}
 dataset1 <- data %>%
@@ -82,13 +82,14 @@ dataset1 <- data %>%
 
 
 ```{r table1, echo=FALSE}
-DT::datatable(dataset1, class = 'cell-border stripe', colnames = c('Date', 'Total Cases', 'New Cases', 'Total Deaths', 'New Deaths', 'ICU patients'), caption = 'Covid-19 Situation in Spain from Feb 2020 to Sep 2021', filter = 'top', options = list( pageLength = 10)) 
+DT::datatable(dataset1, class = 'cell-border stripe', colnames = c('Date', 'Total Cases', 'New Cases', 'Total Deaths', 'New Deaths', 'ICU patients'), caption = 'Table 1 -- Covid-19 Situation in Spain from Feb 2020 to Sep 2021', filter = 'top', options = list( pageLength = 10)) 
 ```
 
 
 # Vaccination Status 💉
 
-While healthcare providers are fighting Coronavirus to safeguard the lives of everyone affected, researchers are racing to develop such a vaccine to save lives. 
+While healthcare providers are fighting Coronavirus to safeguard the lives of everyone who is affected, researchers are racing to develop such a vaccine to save lives. Below is the vaccination status in Spain recorded in a table and an interactive plot. We can see that August has the greatest amount of total vaccine administered in Spain with a sum of 1837564656 doses, while 1034522920 doses of it are administered to people who are partially vaccinated and 897517299 doses of it are administered to people who are fully vaccinated. Although it is the greatest amount of total vaccine administered, people who are partially vaccinated are way more than people who are fully vaccinated. Next, we can see that August, July, and June are the top 3 months having the highest sum of total vaccine administered in Spain. Moreover, these three months are the months having more than 1,000,000,000 doses of vaccine administered in Spain. On the other hand, January has the least number of doses of vaccine administered in Spain with a total of 23499293 doses administered.
+
 
 
 ```{r extract date, echo=FALSE}
@@ -122,33 +123,36 @@ dataset2 <- vaccine %>%
 ```{r table2, echo=FALSE}
 gt(dataset2) %>%
   tab_header(title = "COVID-19 Vaccination Status in Spain from Jan 2021 to Aug 2021",
-             subtitle = "Arranged by Sum of Total Vaccine Administered (High to Low)") %>%
+             subtitle = "Table 2 -- Arranged by Sum of Total Vaccine Administered (High to Low)") %>%
   cols_label(
     Month = html("Month"),
     doses_admin = html('Total Vaccine Administered'),
     people_partially_vaccinated = html('People Partially Vaccinated'),
     people_fully_vaccinated = html('People Fully Vaccinated')
-  )
+  ) 
 ```
 
-```{r plot1, echo=FALSE}
+
+Something surprising in this finding is that the vaccination status seems to be presented in an ascending sequence of months in 2021. For example, January has the least number of vaccines administered in Spain and the trend started to increase, leading to August has the greatest number of vaccines administered in Spain. There could be few reasons related to this. First, there could be an increasing supply of Coronavirus vaccine leading to the improving vaccination status in Spain across time. Next, people might be more aware of the harm and danger of the Coronavirus and started to gain interest in receiving vaccines. Besides that, people could be influenced by government advertisements, education, social media, and others of the importance of being vaccinated. 
+
+```{r plot1, echo=FALSE, fig.cap= 'Figure 1 shows the vaccination status in an ascending sequence of months in 2021'}
 gg <- ggplot(dataset2, aes(x = reorder(Month, -doses_admin),
                      y = doses_admin)) +
   geom_bar(stat = "identity", fill="#00abff") +
   theme_bw() +
   xlab("Month") +
   ylab("Number of vaccine administered") +
-  ggtitle("The number of vaccine administered in Spain in 2021")
+  ggtitle("The total sum of vaccine administered in Spain in 2021")
 plotly::ggplotly(gg)
 ```
 
 
+Thank you for spending time on my blog. Hope you enjoyed it.
+STAY SAFE
 
-Distill is a publication format for scientific and technical writing, native to the web.
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
 
-#Reference
+# Reference
 
 Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci Data 7, 345 (2020)
 
