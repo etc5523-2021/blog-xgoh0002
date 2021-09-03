@@ -157,7 +157,7 @@ STAY SAFE
 
 
 
-This report was written using R (R Core Team 2021). The packages used for producing this post are: tidyverse (Wickham et al. 2019),  dplyr (Wickham et al. 2020), ggplot(Wickham 2016), lubridate(Grolemund and Wickham 2011), plotly (C. Sievert. 2020), gt (Richard et al. 2021) and readr (Hadley Wickham and Jim Hester 2021).
+This report was written using R (R Core Team 2021). The packages used for producing this post are: tidyverse (Wickham et al. 2019),  dplyr (Wickham et al. 2020), ggplot(Wickham 2016), lubridate(Grolemund and Wickham 2011), plotly (C. Sievert. 2020), gt (Richard et al. 2021), dt(Yihui Xie et al. 2021) and readr (Hadley Wickham and Jim Hester 2021).
 
 # Reference
 
@@ -186,5 +186,8 @@ Hadley Wickham and Jim Hester (2021). readr: Read Rectangular Text Data. R packa
 Richard Iannone, Joe Cheng and Barret Schloerke (2021). gt: Easily Create Presentation-Ready Display Tables. R package version 0.3.1. https://CRAN.R-project.org/package=gt
 
 C. Sievert. Interactive Web-Based Data Visualization with R, plotly, and shiny. Chapman and Hall/CRC Florida, 2020.
+
+Yihui Xie, Joe Cheng and Xianying Tan (2021). DT: A Wrapper of the JavaScript Library 'DataTables'. R package
+  version 0.18.2. https://github.com/rstudio/DT
   
 Rami Krispin. 2021. "coronavirus.” GitHub Repository. https://github.com/RamiKrispin/coronavirus; GitHub.
