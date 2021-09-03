@@ -4,7 +4,7 @@ description: |
   "If you cannot do great things, do small things in a great way." -Napoleon Hill
 author:
   - name: Xueqi Goh 
-    url: https://example.com/norajones
+    url: https://www.instagram.com/xuxuehgo/?hl=en
     affiliation: Linkedin
     affiliation_url: linkedin.com/in/xueqi-goh-b244811b1
 date: 09-02-2021

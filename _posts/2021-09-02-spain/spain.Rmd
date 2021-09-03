@@ -5,7 +5,9 @@ description: |
   A simple analysis on the COVID-19 situation in Spain.
 author:
   - name: Xueqi Goh
-    url: https://example.com/norajones
+    url: https://www.instagram.com/xuxuehgo/?hl=en
+    affiliation: Linkedin
+    affiliation_url: linkedin.com/in/xueqi-goh-b244811b1
 date: 09-02-2021
 output:
   distill::distill_article:

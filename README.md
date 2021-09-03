@@ -2,7 +2,7 @@
 
 
 This is the blog of Xueqi Goh.
-The URL of this blog is [FILL].
+The URL of this blog is staywithstephanie.netlify.app.
 
 ## Blog Post 1
 
@@ -10,7 +10,7 @@ This assessment is due Fri Sep 3 2021 11.55PM AEST.
 
 My selected country is Spain.
 
-The relevant blog post for this assessment is in [FILL].html
+The relevant blog post for this assessment is in https://staywithstephanie.netlify.app/posts/2021-09-02-spain/
 
 - [ ] Selected a country
 - [ ] Website with R markdown 
