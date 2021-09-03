@@ -152,9 +152,36 @@ STAY SAFE
 
 
 
+
+
+This report was written using R (R Core Team 2021). The packages used for producing this post are: tidyverse (Wickham et al. 2019),  dplyr (Wickham et al. 2020), ggplot(Wickham 2016), lubridate(Grolemund and Wickham 2011), plotly (C. Sievert. 2020), gt (Richard et al. 2021) and readr (Hadley Wickham and Jim Hester 2021).
+
 # Reference
+
+RStudio Team (2020). RStudio: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/.
 
 Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci Data 7, 345 (2020)
 
+Hannah Ritchie, Edouard Mathieu, Lucas Rodés-Guirao, Cameron Appel, Charlie Giattino, Esteban Ortiz-Ospina, Joe Hasell, Bobbie Macdonald, Diana Beltekian and Max Roser (2020) - "Coronavirus Pandemic (COVID-19)". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/coronavirus'
+
 Domínguez‐Gil, B., Coll, E., Fernández‐Ruiz, M., Corral, E., Del Río, F., Zaragoza, R., ... & Hernández, D. (2020). COVID‐19 in Spain: Transplantation in the midst of the pandemic. American journal of transplantation, 20(9), 2593-2598.
 
+Our World in Data. 2021. "covid-19-data.” GitHub Repository. https://github.com/owid/covid-19-data/tree/master/public/data; GitHub.
+
+euronews. 2020. “Coronavirus: Spain Reveals Four-Stage Plan to de-Escalate from Covid-19 Lockdown.” https://www.euronews.com/2020/04/29/coronavirus-spain-reveals-four-stage-plan-to-de-escalate-from-covid-19-lockdown.
+
+Wickham, Hadley. 2016. Ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://ggplot2.tidyverse.org.
+
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. “Welcome to the tidyverse.” Journal of Open Source Software 4 (43): 1686. https://doi.org/10.21105/joss.01686.
+
+Grolemund, Garrett, and Hadley Wickham. 2011. “Dates and Times Made Easy with lubridate.” Journal of Statistical Software 40 (3): 1–25. http://www.jstatsoft.org/v40/i03/.
+
+Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2020. Dplyr: A Grammar of Data Manipulation. https://CRAN.R-project.org/package=dplyr.
+
+Hadley Wickham and Jim Hester (2021). readr: Read Rectangular Text Data. R package version 2.0.1. https://CRAN.R-project.org/package=readr
+
+Richard Iannone, Joe Cheng and Barret Schloerke (2021). gt: Easily Create Presentation-Ready Display Tables. R package version 0.3.1. https://CRAN.R-project.org/package=gt
+
+C. Sievert. Interactive Web-Based Data Visualization with R, plotly, and shiny. Chapman and Hall/CRC Florida, 2020.
+  
+Rami Krispin. 2021. "coronavirus.” GitHub Repository. https://github.com/RamiKrispin/coronavirus; GitHub.
