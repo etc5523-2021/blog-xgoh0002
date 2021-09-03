@@ -10,10 +10,10 @@
     },
     {
       "path": "index.html",
-      "title": "ETC 5523 Blog",
+      "title": "My Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-09-03T14:51:37+10:00"
+      "last_modified": "2021-09-03T14:55:46+10:00"
     }
   ],
   "collections": ["posts/posts.json"]
