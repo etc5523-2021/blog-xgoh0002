@@ -8,7 +8,7 @@ The URL of this blog is staywithstephanie.netlify.app.
 
 This assessment is due Fri Sep 3 2021 11.55PM AEST.
 
-My selected country is Spain.
+My selected country is Ireland.
 
 The relevant blog post for this assessment is in https://staywithstephanie.netlify.app/posts/2021-09-02-spain/
 
