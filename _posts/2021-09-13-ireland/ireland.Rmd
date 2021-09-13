@@ -1,0 +1,40 @@
+---
+title: "🇮🇪 Ireland 🦠"
+description: |
+  A short description of the post.
+author:
+  - name: Xueqi Goh
+    url: https://www.instagram.com/xuxuehgo/?hl=en
+    affiliation: Linkedin
+    affiliation_url: linkedin.com/in/xueqi-goh-b244811b1
+date: 09-13-2021
+output:
+  distill::distill_article:
+    self_contained: false
+theme: null
+css: "style.css"    
+---
+
+```{css, echo=FALSE}
+.distill-site-header {
+  background-color: rosybrown;
+  font-color: white;
+  font-family: cursive;
+  font-size: 13pt;
+}
+```
+
+```{css, echo=FALSE}
+h1 {
+ color: lightcoral;
+}
+```
+
+```{css, echo=FALSE}
+body{
+  background-color: papayawhip
+}
+```
+
+
+

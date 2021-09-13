@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-09-13-ireland/",
+    "title": "🇮🇪 Ireland 🦠",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Xueqi Goh",
+        "url": "https://www.instagram.com/xuxuehgo/?hl=en"
+      }
+    ],
+    "date": "2021-09-13",
+    "categories": [],
+    "contents": "\n\n\n.distill-site-header {\n  background-color: rosybrown;\n  font-color: white;\n  font-family: cursive;\n  font-size: 13pt;\n}\n\n\n\nh1 {\n color: lightcoral;\n}\n\n\n\nbody{\n  background-color: papayawhip\n}\n\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-09-13T15:40:30+10:00",
+    "input_file": "ireland.knit.md"
+  },
+  {
     "path": "posts/2021-09-02-spain/",
     "title": "😷 Coronavirus in Spain 🇪🇸",
     "description": "It's the remix to ignition Coronavirus edition. I miss all my friends and can't get out of the kithchen.\nA simple analysis on the COVID-19 situation in Spain.",
