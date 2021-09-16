@@ -36,6 +36,7 @@ body{
 }
 ```
 
+<<<<<<< HEAD
 ```{r message=FALSE}
 library(readr)
 library(dplyr)
@@ -127,5 +128,7 @@ finaltable3 <- table3 %>%
 ```
 
 
+=======
+>>>>>>> 7100b9c0cf9ed3faf27fe5dadbf65e5b905a39d4
 
 
