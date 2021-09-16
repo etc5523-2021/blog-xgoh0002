@@ -36,7 +36,6 @@ body{
 }
 ```
 
-<<<<<<< HEAD
 ```{r message=FALSE}
 library(readr)
 library(dplyr)
@@ -111,24 +110,16 @@ m
 
 
 
-
 ```{r}
 table3 <- timestamp %>%
   select(CountyName, TimeStamp, ConfirmedCovidCases) %>%
   mutate(Date = as.Date(TimeStamp)) 
-finaltable3[is.na(finaltable3)] = 0
+table3[is.na(table3)] = 0
 ```
 
 
-```{r}
-finaltable3 <- table3 %>%
-  select(Date, CountyName, ConfirmedCovidCases) %>%
-  group_by(CountyName)
-
-```
 
 
-=======
->>>>>>> 7100b9c0cf9ed3faf27fe5dadbf65e5b905a39d4
+
 
 
