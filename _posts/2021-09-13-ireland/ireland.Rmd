@@ -48,6 +48,9 @@ library(geojsonsf)
 library(leaflet)
 library(geojsonio)
 library(leaflet.extras)
+library(dygraphs)
+library(xts)  
+library(TSstudio)
 ```
 
 
@@ -117,9 +120,71 @@ table3 <- timestamp %>%
 table3[is.na(table3)] = 0
 ```
 
+```{r}
+finaltable3 <- table3 %>%
+  select(Date, CountyName, ConfirmedCovidCases) %>%
+  group_by(CountyName) %>%
+  filter(CountyName %in% c("Dublin", "Cork", "Donegal", "Limerick", "Galway"))
+
+```
 
 
+```{r}
+ggplot(finaltable3, aes(x = Date,
+                        y = ConfirmedCovidCases)) +
+ # geom_area(fill="#69b3a2", alpha=0.5) +
+    geom_line(color="#69b3a2") +
+  facet_wrap(~CountyName, ncol = 1, scales = "free") +
+  scale_x_date(date_breaks = "1 month") +
+ theme_bw()
+```
 
 
+```{r}
+table4 <- total %>%
+  select(Date, ConfirmedCovidCases, ConfirmedCovidDeaths) 
+  
+```
 
+```{r}
+xx <- table4 %>% xts(order.by = as.POSIXct(table4$Date))
+```
+
+
+```{r}
+graph <- dygraph(xx, main = 'The time series Covid situation  in Ireland') %>%
+  dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors="#D8AE5A") %>%
+  dyLegend(show = "always", hideOnMouseOut = FALSE) %>%
+  dyRangeSelector() %>%
+  dyCrosshair(direction = "vertical") %>%
+  dyHighlight(highlightCircleSize = 5, highlightSeriesBackgroundAlpha = 0.2, hideOnMouseOut = FALSE)  %>%
+  dyRoller(rollPeriod = 1) 
+graph
+```
+
+```{r}
+table5 <- total %>%
+  select(Date, ConfirmedCovidCases, Male, Female, Unknown) 
+table5[is.na(table5)] = 0
+  
+```
+
+```{r}
+covid <- cbind(table5$Male, table5$Female, table5$Unknown, table5$ConfirmedCovidCases)
+```
+
+
+```{r}
+table5$Date <- ymd_hms(table5$Date)
+```
+
+```{r}
+gg <- xts(x = covid, order.by = table5$Date)
+```
+
+
+```{r}
+x <- dygraph(gg)%>% dyRangeSelector()
+x
+```
 
