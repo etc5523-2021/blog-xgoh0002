@@ -1,0 +1,131 @@
+---
+title: "🇮🇪 Ireland 🦠"
+description: |
+  A short description of the post.
+author:
+  - name: Xueqi Goh
+    url: https://www.instagram.com/xuxuehgo/?hl=en
+    affiliation: Linkedin
+    affiliation_url: linkedin.com/in/xueqi-goh-b244811b1
+date: 09-13-2021
+output:
+  distill::distill_article:
+    self_contained: false
+theme: null
+css: "style.css"    
+---
+
+```{css, echo=FALSE}
+.distill-site-header {
+  background-color: rosybrown;
+  font-color: white;
+  font-family: cursive;
+  font-size: 13pt;
+}
+```
+
+```{css, echo=FALSE}
+h1 {
+ color: lightcoral;
+}
+```
+
+```{css, echo=FALSE}
+body{
+  background-color: papayawhip
+}
+```
+
+```{r message=FALSE}
+library(readr)
+library(dplyr)
+library(tidyverse)
+library(lubridate)
+library(sparkline)
+library(timeDate)
+library(tidyr)
+library(geojsonsf)
+library(leaflet)
+library(geojsonio)
+library(leaflet.extras)
+```
+
+
+```{r message=FALSE}
+county <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/Covid19CountyStatisticsHPSCIrelandOpenData.csv")
+timestamp <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/Covid19CountyStatisticsHPSCIreland.csv")
+total <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/CovidStatisticsProfileHPSCIrelandOpenData.csv")
+```
+
+contains Covid-19 Daily Statistics for Ireland by County as reported by the Health Protection Surveillance Centre
+
+```{r}
+table1 <- county %>%
+  select(CountyName, ConfirmedCovidCases, PopulationProportionCovidCases, PopulationCensus16) %>%
+  arrange(-ConfirmedCovidCases)
+  
+```
+
+```{r table1, echo=FALSE}
+DT::datatable(table1, class = 'cell-border stripe', colnames = c('County Name', 'Confirmed Covid Cases', 'Population Proportion Covid Cases', 'Population Census 16'), caption = 'Table 1 -- Total cummulative confirmed covid cases in each county in Ireland', filter = 'top', options = list( pageLength = 10)) 
+```
+
+
+```{r}
+a <- geojson_sf("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/CovidCounty.geojson")
+```
+
+
+```{r}
+aa <- a %>% select(CountyName, ConfirmedCovidCases, geometry, ORIGID) %>%
+  group_by(CountyName, ORIGID ) %>% 
+summarise(ConfirmedCovidCases = sum(ConfirmedCovidCases))
+```
+
+```{r}
+
+bins <- c(0, 40000, 80000, 120000, 160000, 200000, Inf)
+pal <- colorBin("YlOrRd", domain = aa$ConfirmedCovidCases, bins = bins, na.color = "#aaaaaa")
+labels <- sprintf(
+  "<strong>%s</strong><br/>%g Confirmed COVID Cases <sup></sup>",
+  aa$CountyName, aa$ConfirmedCovidCases
+) %>% 
+  lapply(htmltools::HTML)
+
+
+m <- leaflet(aa) %>% addTiles()  %>% setView(-8,53.6,6) %>%
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5,
+    opacity = 1.0, fillOpacity = 0.5,
+    fillColor = ~pal(ConfirmedCovidCases),
+    highlightOptions = highlightOptions(color = "white", weight = 2,
+      bringToFront = TRUE), label = labels,
+              labelOptions = labelOptions(style = list("font-weight" = "normal", 
+                                                       padding = "3px 8px"),
+                                          textsize = "15px",
+                                          direction = "auto")) %>% 
+  addLegend(pal=pal,values=~ConfirmedCovidCases,title = "Ireland Confirmed Covid Cases",position='bottomright')
+
+m
+```
+
+
+
+
+```{r}
+table3 <- timestamp %>%
+  select(CountyName, TimeStamp, ConfirmedCovidCases) %>%
+  mutate(Date = as.Date(TimeStamp)) 
+finaltable3[is.na(finaltable3)] = 0
+```
+
+
+```{r}
+finaltable3 <- table3 %>%
+  select(Date, CountyName, ConfirmedCovidCases) %>%
+  group_by(CountyName)
+
+```
+
+
+
+
