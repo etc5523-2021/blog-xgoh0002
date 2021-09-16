@@ -47,7 +47,9 @@ library(tidyr)
 library(geojsonsf)
 library(leaflet)
 library(geojsonio)
+library(plotly)
 library(leaflet.extras)
+library(tidyr)
 library(dygraphs)
 library(xts)  
 library(TSstudio)
@@ -164,27 +166,36 @@ graph
 
 ```{r}
 table5 <- total %>%
-  select(Date, ConfirmedCovidCases, Male, Female, Unknown) 
+  select( Male, Female, Unknown)
 table5[is.na(table5)] = 0
   
 ```
 
+
 ```{r}
-covid <- cbind(table5$Male, table5$Female, table5$Unknown, table5$ConfirmedCovidCases)
+cc <- table5 %>%
+  mutate(Male = Male - lag(Male, default = Male[1]),
+         Female = Female - lag(Female, default = Female[1]),
+         Unknown = Unknown - lag(Unknown, default = Unknown[1])) %>%
+  summarise(Male = sum(Male),
+            Female = sum(Female),
+            Unknown = sum(Unknown))
+```
+
+```{r}
+tt <- pivot_longer(cc, cols = Male:Unknown, names_to = c("Gender")) 
 ```
 
 
-```{r}
-table5$Date <- ymd_hms(table5$Date)
-```
 
 ```{r}
-gg <- xts(x = covid, order.by = table5$Date)
+
+fig <- plot_ly(tt, labels = ~Gender, values = ~value, type = 'pie')
+fig <- fig %>% layout(title = 'Gender proportion ',
+         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+
+fig
 ```
 
-
-```{r}
-x <- dygraph(gg)%>% dyRangeSelector()
-x
-```
 
