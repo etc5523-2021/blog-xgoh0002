@@ -74,7 +74,7 @@ total <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/dat
 
 # Findings 🔍
 
-Table 1 shows the total confirmed COVID-19 cases in each county in The Republic of Ireland. Data for the 26 counties are recorded. In addition, this table also provides the data of the population proportion covid cases and the population recorded in the Census 2016. It is very clear that Dublin has occupy the first place in the total number of confirmed covid cases, the population proportion covid cases and has the greatest population recorded in the Census 2016.
+Table 1 shows the population proportion covid cases and population from Census 2016 in each county in The Republic of Ireland. Data for the 26 counties are recorded. We can see that Dublin, the capital city of Ireland, has an approximately 9353 population proportion covid cases while the population recorded on Census 2016 was 1347359, which was the county with the highest population nationwide. Next, we can see that Cork has the second highest number of population recorded on the Census 2016 with a total of 542868 and has an approximately 5835 population proportion covid cases recorded.
 
 ```{r, echo=FALSE}
 table1 <- county %>%
@@ -84,10 +84,13 @@ table1 <- county %>%
 ```
 
 ```{r table1, echo=FALSE}
-DT::datatable(table1, class = 'cell-border stripe', colnames = c('County Name',  'Population Proportion Covid Cases', 'Population Census 16'), caption = 'Table 1 -- The population each county in Ireland', filter = 'top', options = list( pageLength = 10)) 
+DT::datatable(table1, class = 'cell-border stripe', colnames = c('County Name',  'Population Proportion Covid Cases', 'Population Census 16'), caption = 'Table 1 -- The population of each county in Ireland', filter = 'top', options = list( pageLength = 10)) 
 ```
 
-The map below allows us to identify the spread of Coronavirus throughout the whole nation by showing the total confirmed covid cases in Ireland. We can see that Dublin and Cork has the greatest number 
+The map below allows us to identify the spread of Coronavirus throughout the whole nation by showing the total confirmed covid cases in Ireland. We can see that the distribution of covid cases across Ireland are very diverse as some county has total confirmed cases recorded of more than 100,000 cases while some county has total of 0 - 2000 confirmed cases recorded. 
+From the map provided below, we can see that Dublin has become a covid hotspot by having the highest number of total confirmed covid cases, which is 126781 cases. Despite of population factor, we could assume that Dublin has more international travellers and the government has failures in hotel quarantine and there could be more high risk venues in the capital city such as school, pubs and shopping malls.
+
+On the other hand, we can see that Leitrim has a total of 1599 confirmed covid cases, which is the covid safest county among others. Opposite to Dublin, Leitrim has the least number of population recorded from Census 2016 in Ireland. We can assume that there is not much high risk venues and activities in Leitrim and people over there are more aware of the coronavirus. 
 
 ```{r, echo = FALSE}
 a <- geojson_sf("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/cc.geojson")
@@ -143,7 +146,7 @@ finaltable3 <- table3 %>%
 
 ```
 
-
+Next, readers are able to select and compare the confirmed covid cases in each county in Ireland throughout the time period.
 
 ```{r figure10, fig.cap= "The distribution of COVID cases across each county in Ireland From March 2020 to Sep 2021", echo=FALSE}
 library(crosstalk)
