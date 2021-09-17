@@ -63,17 +63,16 @@ library(xts)
 library(TSstudio)
 ```
 
-🇮🇪🇮🇪🇮🇪 The Republic of Ireland, known as the home of Guinness Beer, is a country with rich history, magical landscape, crowded Irish pubs and well-preserved castles. Like other countries, Ireland is still fighting with the coronavirus. This blog will analyse Ireland's coronavirus situation on diffent aspect including demographic aspects (age, gender). 
-We will look at the population and total confirmed cases of each county in Ireland, confirmed covid cases base on age groups, gender and many others. 
+🇮🇪🇮🇪🇮🇪 The Republic of Ireland, known as the home of Guinness Beer, is a country with rich history, magical landscape, crowded Irish pubs, and well-preserved castles. Like other countries, Ireland is still fighting with the coronavirus. This blog will analyze Ireland's coronavirus situation on different aspects including demographic aspects (age, gender). 
+We will look at the population and total confirmed cases of each county in Ireland confirmed covid cases based on age groups, gender, and many others. 
 
 
 # Data Description 📖
 
 #### Data Source
 
-The data source for the this blog is from [Ireland's COVID-19 Data Hub](https://covid19ireland-geohive.hub.arcgis.com).
-Three data sets are selected from this website. The first dataste is the Covid-19 County Statistics HPSC Ireland Open Data which allows me to make visualisation of the confirmed cases in each county. Next, the Covid-19 County Statistics HPSC Ireland allows me to make time-series visualisation using the timestamps provided. Lastly, the Covid Statistics Profile HPSC Ireland Open Data allows me to analyse and draw maps related to the covid data with demographic variables.
-
+The data source for this blog is from [Ireland's COVID-19 Data Hub](https://covid19ireland-geohive.hub.arcgis.com).
+Three data sets are selected from this website. The first dataset is the Covid-19 County Statistics HPSC Ireland Open Data which allows me to make visualization of the confirmed cases in each county. Next, the Covid-19 County Statistics HPSC Ireland allows me to make time-series visualization using the timestamps provided. Lastly, the Covid Statistics Profile HPSC Ireland Open Data allows me to analyze and draw maps related to the covid data with demographic variables.
 
 ```{r message=FALSE, echo=FALSE}
 county <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/Covid19CountyStatisticsHPSCIrelandOpenData.csv")
@@ -86,7 +85,7 @@ a <- geojson_sf("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/
 # Findings 🔍
 
 #### Overview of population and COVID-19 cases
-Table 1 shows the population proportion covid cases and population from Census 2016 in each county in The Republic of Ireland. Data for the 26 counties are recorded. We can see that Dublin, the capital city of Ireland, has an approximately 9353 population proportion covid cases while the population recorded on Census 2016 was 1347359, which was the county with the highest population nationwide. Next, we can see that Cork has the second highest number of population recorded on the Census 2016 with a total of 542868 and has an approximately 5835 population proportion covid cases recorded.
+Table 1 shows the population proportion covid cases and population from Census 2016 in each county in The Republic of Ireland. Data for the 26 counties are recorded. We can see that Dublin, the capital city of Ireland, has an approximately 9353 population proportion covid cases while the population recorded on Census 2016 was 1347359, which was the county with the highest population nationwide. Next, we can see that Cork has the second-highest number of the population recorded on the Census 2016 with a total of 542868 and has an approximately 5835 population proportion covid cases recorded.
 
 ```{r, echo=FALSE}
 table1 <- county %>%
@@ -99,10 +98,10 @@ table1 <- county %>%
 DT::datatable(table1, class = 'cell-border stripe', colnames = c('County Name',  'Population Proportion Covid Cases', 'Population Census 16'), caption = 'Table 1 -- The population of each county in Ireland', filter = 'top', options = list( pageLength = 10)) 
 ```
 
-The map below allows us to identify the spread of Coronavirus throughout the whole nation by showing the total confirmed covid cases in Ireland. We can see that the distribution of covid cases across Ireland are very diverse as some county has total confirmed cases recorded of more than 100,000 cases while some county has total of 0 - 2000 confirmed cases recorded. 
-From the map provided below, we can see that Dublin has become a covid hotspot by having the highest number of total confirmed covid cases, which is 126781 cases. Despite of population factor, we could assume that Dublin has more international travellers and the government has failures in hotel quarantine and there could be more high risk venues in the capital city such as school, pubs and shopping malls.
+The map below allows us to identify the spread of Coronavirus throughout the whole nation by showing the total confirmed covid cases in Ireland. We can see that the distribution of covid cases across Ireland are very diverse as some county has total confirmed cases recorded of more than 100,000 cases while some county has a total of 0 - 2000 confirmed cases recorded. 
+From the map provided below, we can see that Dublin has become a covid hotspot by having the highest number of total confirmed covid cases, which is 126781 cases. Despite the population factor, we could assume that Dublin has more international travelers and the government has failures in hotel quarantine and there could be more high-risk venues in the capital city such as schools, pubs, and shopping malls.
 
-On the other hand, we can see that Leitrim has a total of 1599 confirmed covid cases, which is the covid safest county among others. Opposite to Dublin, Leitrim has the least number of population recorded from Census 2016 in Ireland. We can assume that there is not much high risk venues and activities in Leitrim and people over there are more aware of the coronavirus. 
+On the other hand, we can see that Leitrim has a total of 1599 confirmed covid cases, which is the covid safest county among others. Opposite to Dublin, Leitrim has the least population recorded from Census 2016 in Ireland. We can assume that there are not many high-risk venues and activities in Leitrim and people over there are more aware of the coronavirus. 
 
 
 
@@ -204,8 +203,8 @@ graph
 ```
 
 
-According to Figure 3 above, the orange time series line shwos the confirmed covid cases and the blue line shows the confirmed covid deaths in Ireland from March 2020 to September 2021. First and foremost, the most surprising point, the confirmed covid cases skyrocketed from the end of December and reaches it's peak on 7 of January 2021. Ireland achieved a total of 8348 confirmed covid cases and 20 confirmed covid deaths on 7 January 2021. In my opinion, people in Ireland could got infected due to the celebration of Christmas and New Year. There could be crowds celebrating festivals in public and disobeying the covid rules which will help in preventing infection. Thus, as it takes around 2 weeks to show symptoms of the Coronavirus, people remain unaware and did not quarantine and therefore infect others. This could be the reason causing the serious outbreak in January 2021. At the end of January 2021, the total confirmed covid cases in Ireland started to decrease and did not exceed 1000 cases each day. Perhaps the government has imposed a lockdown or other rules to stop this outbreak.
-Next, starting from the mid of July, the trend of confirmed covid cases in Ireland started to rise again and has reaches it's peak in the mid of August and started to decrease. In my opinion, this peak could be caused by the Delta variant outbreak, which is twice as contagious as the previous variant.
+According to Figure 3 above, the orange time-series line shows the confirmed covid cases and the blue line shows the confirmed covid deaths in Ireland from March 2020 to September 2021. First and foremost, the most surprising point, the confirmed covid cases skyrocketed from the end of December and reaches their peak on 7 of January 2021. Ireland achieved a total of 8348 confirmed covid cases and 20 confirmed covid deaths on 7 January 2021. In my opinion, people in Ireland could get infected due to the celebration of Christmas and New Year. There could be crowds celebrating festivals in public and disobeying the covid rules which will help in preventing infection. Thus, as it takes around 2 weeks to show symptoms of the Coronavirus, people remain unaware and did not quarantine and therefore infect others. This could be the reason causing the serious outbreak in January 2021. At the end of January 2021, the total confirmed covid cases in Ireland started to decrease and did not exceed 1000 cases each day. Perhaps the government has imposed a lockdown or other rules to stop this outbreak.
+Next, starting from the mid of July, the trend of confirmed covid cases in Ireland started to rise again and has reached a peak in the mid of August and started to decrease. In my opinion, this peak could be caused by the Delta variant outbreak, which is twice as contagious as the previous variant.
 
 #### Demographic (Gender)
 ```{r, echo=FALSE}
@@ -242,7 +241,7 @@ fig <- fig %>% layout(title = 'Gender proportion of Covid cases in Ireland',
 fig
 ```
 
-According to the pie chart above, we can see that 51.2% of confirmed covid cases in Ireland are *Female* patients and 48.7% of confirmed covid cases in Ireland are *Male*. Both gender shares a very similar of proportion of covid cases in Ireland. Besides that, 0.0395% of covid patient's gender in Ireland remained *Unknown*.
+According to the pie chart above, we can see that 51.2% of confirmed covid cases in Ireland are *Female* patients and 48.7% of confirmed covid cases in Ireland are *Male*. Both genders share a very similar proportion of covid cases in Ireland. Besides that, 0.0395% of covid patient's gender in Ireland remained *Unknown*.
 
 #### Demographic (Age Groups)
 ```{r, echo=FALSE}
@@ -284,7 +283,7 @@ plot_ly(final1, x =~Age_group, y =  ~value, showlegend = TRUE) %>%
                       '</br> sum: ', value))
 ```
 
-According to the figure above showing the distribution of covid cases across each age groups, we can see that *Aged 15 to 24* is the age group with the highest number of confirmed cases (78361) in Ireland. Next, followed by *Aged 25 to 34*, *Aged 35 to 44* and *Aged 45 to 54*, which respectively has 64610, 56105 and 47619 confirmed cases within the age group. Moreover, we can see that *Aged 5 to 14* (35850) and *Aged 55 to 64* (33924) has very similar number of confirmed covid cases. Last but not least, *Aged 65 to 74* has a total of 16790 confirmed covid cases, *Aged 1 to 4* has a total of 14348 confirmed covid cases while *Aged 85 up* has the least total of confirmed covid cases with a sum of 8337 among other age groups.
+According to the figure above showing the distribution of covid cases across each age group, we can see that *Aged 15 to 24* is the age group with the highest number of confirmed cases (78361) in Ireland. Next, followed by *Aged 25 to 34*, *Aged 35 to 44* and *Aged 45 to 54*, which respectively have 64610, 56105, and 47619 confirmed cases within the age group. Moreover, we can see that *Aged 5 to 14* (35850) and *Aged 55 to 64* (33924) have similar number of confirmed covid cases. Last but not least, *Aged 65 to 74* has a total of 16790 confirmed covid cases, *Aged 1 to 4* has a total of 14348 confirmed covid cases while *Aged 85 up* has the least total of confirmed covid cases with a sum of 8337 among other age groups.
 
 
 #### Hospitalised, Healthcare Workers and ICU required COVID-19 cases
@@ -319,6 +318,5 @@ graph2 <- dygraph(xxx, main = 'Hospitalised, Healthcare Workers and requiring IC
 graph2
 ```
 
-Moving to the very last graph, the interactive graph above shows the record of hospitalised covid cases, health care workers covid cases and covid cases that requires ICU in Ireland. We can see that the health care workers covid cases are basically more than hospitalised covid cases and covid cases that requires ICU especially for the first peak at April 2020 and the secod peak at January 2021. In my opinion, the first peak of health care workers covid cases could be cause by the initial COVID 19 outbreak, there could be limited amount of personal protective equipments for health care workers causing health care workers especially frontliners having greater risk of getting infected by others. 
-As mentioned previously, the second peak for these three variables could be caused by celebrating Christmas and New Year. The more confirmed covid cases, the more hospitalised covid cases and more covid cases requiring ICU will be and will put health care workers at higher risk. However, the trend of confirming covid cases for health care workers seems to decreases significantly after the second peak and has remain stable at a very small amount. In my opinion, this could be most of the health care workers are vaccinated. Thus, the amount of health care workers covid cases normally has a positive linear relationship with the total confirmed cases and hospitalised covid cases, however, the hospitalised workers covid cases does not seem to increase while the amount of hospitalised covid cases increased after July 2021.
-
+Moving to the very last graph, the interactive graph above shows the record of hospitalized covid cases, health care workers covid cases and covid cases that require ICU in Ireland. We can see that the health care worker's covid cases are more than hospitalized covid cases and covid cases that require ICU especially for the first peek in April 2020 and the second peak in January 2021. In my opinion, the first peak of health care worker's covid cases could be caused by the initial COVID 19 outbreak, there could be a limited amount of personal protective equipment for health care workers causing health care workers especially frontline having a greater risk of getting infected by others. 
+As mentioned previously, the second peak for these three variables could be caused by celebrating Christmas and New Year. The more confirmed covid cases, the more hospitalized covid cases, and more covid cases requiring ICU will be and will put health care workers at higher risk. However, the trend of confirming covid cases for health care workers seems to decreases significantly after the second peak and has remained stable at a very small amount. In my opinion, this could be most health care workers are vaccinated. Thus, the amount of health care worker's covid cases normally has a positive linear relationship with the total confirmed cases and hospitalized covid cases, however, the hospitalized workers covid cases does not seem to increase while the amount of hospitalized covid cases increased after July 2021.
