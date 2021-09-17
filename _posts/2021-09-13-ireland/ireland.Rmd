@@ -32,8 +32,16 @@ h1 {
 
 ```{css, echo=FALSE}
 body{
-  background-color: papayawhip
+  background-color: papayawhip;
+
 }
+```
+
+```{css, echo = FALSE}
+p {
+  font-size : 15px;
+}
+
 ```
 
 ```{r message=FALSE, echo=FALSE}
@@ -63,12 +71,15 @@ We will look at the population and total confirmed cases of each county in Irela
 
 #### Data Source
 
+The data source for the this blog is from [Ireland's COVID-19 Data Hub](https://covid19ireland-geohive.hub.arcgis.com).
+Three data sets are selected from this website. The first dataste is the Covid-19 County Statistics HPSC Ireland Open Data which allows me to make visualisation of the confirmed cases in each county. Next, the Covid-19 County Statistics HPSC Ireland allows me to make time-series visualisation using the timestamps provided. Lastly, the Covid Statistics Profile HPSC Ireland Open Data allows me to analyse and draw maps related to the covid data with demographic variables.
 
 
 ```{r message=FALSE, echo=FALSE}
 county <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/Covid19CountyStatisticsHPSCIrelandOpenData.csv")
 timestamp <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/Covid19CountyStatisticsHPSCIreland.csv")
 total <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/CovidStatisticsProfileHPSCIrelandOpenData.csv")
+a <- geojson_sf("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/cc.geojson")
 ```
 
 
@@ -92,9 +103,7 @@ From the map provided below, we can see that Dublin has become a covid hotspot b
 
 On the other hand, we can see that Leitrim has a total of 1599 confirmed covid cases, which is the covid safest county among others. Opposite to Dublin, Leitrim has the least number of population recorded from Census 2016 in Ireland. We can assume that there is not much high risk venues and activities in Leitrim and people over there are more aware of the coronavirus. 
 
-```{r, echo = FALSE}
-a <- geojson_sf("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/cc.geojson")
-```
+
 
 
 ```{r, echo=FALSE}
@@ -104,7 +113,7 @@ aa <- a %>% select(CountyName, ConfirmedCovidCases, geometry, ORIGID) %>%
 summarise(ConfirmedCovidCases = sum(ConfirmedCovidCases))
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.width= 10}
 
 bins <- c(0, 2000, 4000, 6000, 10000, 15000, 20000, 30000, 100000, 150000)
 pal <- colorBin("YlOrRd", domain = aa$ConfirmedCovidCases, bins = bins, na.color = "#aaaaaa")
@@ -182,7 +191,7 @@ xx <- table4 %>% xts(order.by = as.POSIXct(table4$Date))
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.width= 10}
 graph <- dygraph(xx, main = 'Figure 3 - New confirmed covid cases and new confirmed covid deaths') %>%
   dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors=RColorBrewer::brewer.pal(3, "Set2")) %>%
   dyLegend(show = "always", hideOnMouseOut = FALSE) %>%
@@ -222,7 +231,7 @@ tt <- pivot_longer(cc, cols = Male:Unknown, names_to = c("Gender"))
 
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.width= 10}
 
 fig <- plot_ly(tt, labels = ~Gender, values = ~value, type = 'pie')
 fig <- fig %>% layout(title = 'Gender proportion of Covid cases in Ireland',
@@ -267,7 +276,7 @@ final1 <- gather(final, Age_group, value, Aged1to4:Aged85up, factor_key = TRUE)
 
 
 
-```{r,fig.cap= "The distribution of Covid cases across each age groups", echo=FALSE}
+```{r,fig.cap= "The distribution of Covid cases across each age groups", echo=FALSE, fig.width= 10}
 plot_ly(final1, x =~Age_group, y =  ~value, showlegend = TRUE) %>% 
     add_bars(color = ~"Age_group", text = ~paste('</br> Age_group: ', Age_group,
                       '</br> sum: ', value))
@@ -296,7 +305,7 @@ xxx <- tablefinal %>% xts(order.by = as.POSIXct(tablefinal$Date))
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.width= 10}
 graph2 <- dygraph(xxx, main = 'Hospitalised, Healthcare Workers and requiring ICU Covid cases') %>%
   dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors=RColorBrewer::brewer.pal(3, "Set2")) %>%
   dyLegend(show = "always", hideOnMouseOut = FALSE) %>%
