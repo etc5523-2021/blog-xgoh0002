@@ -10,7 +10,7 @@ This assessment is due Fri Sep 3 2021 11.55PM AEST.
 
 My selected country is Ireland.
 
-The relevant blog post for this assessment is in https://staywithstephanie.netlify.app/posts/2021-09-02-spain/
+The relevant blog post for this assessment is in https://staywithstephanie.netlify.app/posts/2021-09-13-ireland/
 
 - [ ] Selected a country
 - [ ] Website with R markdown 
