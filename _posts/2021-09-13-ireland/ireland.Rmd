@@ -95,13 +95,12 @@ table1 <- county %>%
 ```
 
 ```{r table1, echo=FALSE}
-DT::datatable(table1, class = 'cell-border stripe', colnames = c('County Name',  'Population Proportion Covid Cases', 'Population Census 16'), caption = 'Table 1 -- The population of each county in Ireland', filter = 'top', options = list( pageLength = 10)) 
+DT::datatable(table1, class = 'cell-border stripe', colnames = c('County Name',  'Population Proportion Covid Cases', 'Population Census 16'), caption = 'Table 1: The population of each county in Ireland', filter = 'top', options = list( pageLength = 10)) 
 ```
 
 The map below allows us to identify the spread of Coronavirus throughout the whole nation by showing the total confirmed covid cases in Ireland. We can see that the distribution of covid cases across Ireland are very diverse as some county has total confirmed cases recorded of more than 100,000 cases while some county has a total of 0 - 2000 confirmed cases recorded. 
 From the map provided below, we can see that Dublin has become a covid hotspot by having the highest number of total confirmed covid cases, which is 126781 cases. Despite the population factor, we could assume that Dublin has more international travelers and the government has failures in hotel quarantine and there could be more high-risk venues in the capital city such as schools, pubs, and shopping malls.
 
-On the other hand, we can see that Leitrim has a total of 1599 confirmed covid cases, which is the covid safest county among others. Opposite to Dublin, Leitrim has the least population recorded from Census 2016 in Ireland. We can assume that there are not many high-risk venues and activities in Leitrim and people over there are more aware of the coronavirus. 
 
 
 
@@ -113,7 +112,7 @@ aa <- a %>% select(CountyName, ConfirmedCovidCases, geometry, ORIGID) %>%
 summarise(ConfirmedCovidCases = sum(ConfirmedCovidCases))
 ```
 
-```{r, echo=FALSE, fig.width= 10}
+```{r, echo=FALSE, fig.width= 10, fig.cap="Ireland Confirmed Covid Cases Map"}
 
 bins <- c(0, 2000, 4000, 6000, 10000, 15000, 20000, 30000, 100000, 150000)
 pal <- colorBin("YlOrRd", domain = aa$ConfirmedCovidCases, bins = bins, na.color = "#aaaaaa")
@@ -155,9 +154,12 @@ finaltable3 <- table3 %>%
 
 ```
 
+On the other hand, we can see that Leitrim has a total of 1599 confirmed covid cases, which is the covid safest county among others. Opposite to Dublin, Leitrim has the least population recorded from Census 2016 in Ireland. We can assume that there are not many high-risk venues and activities in Leitrim and people over there are more aware of the coronavirus. 
 Next, readers are able to select and compare the confirmed covid cases in each county in Ireland throughout the time period.
 
-```{r figure10, fig.cap= "The distribution of COVID cases across each county in Ireland From March 2020 to Sep 2021", echo=FALSE}
+
+
+```{r, echo=FALSE, fig.cap= c('cap1', '2')}
 library(crosstalk)
 tx <- highlight_key(finaltable3)
 text <- list(family = "sans serif",
@@ -171,12 +173,24 @@ widgets <- bscols(
   #filter_select("province_territory", "Province Territory", tx, ~province_territory)
 )
 bscols(
-  widths = c(2, 10), widgets, 
+  widths = c(2, 10), 
+  widgets, 
   plot_ly(tx, x = ~Date, y = ~ConfirmedCovidCases, showlegend = TRUE) %>% 
+    layout(annotations = list(x = -0.1, y = -0.12, text = "County Covid Situation", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='auto', yanchor='auto', xshift=0, yshift=0)) %>%
     add_lines(color = ~CountyName, text = ~paste('</br> CountyName: ', CountyName,
                       '</br> Date: ', Date,
-                      '</br> ConfirmedCovidCases: ', ConfirmedCovidCases)))
+                      '</br> ConfirmedCovidCases: ', ConfirmedCovidCases))) 
+
+
 ```
+
+
+
+
+
+
 
 #### New cases and new deaths throughout the time-series
 
@@ -191,8 +205,8 @@ xx <- table4 %>% xts(order.by = as.POSIXct(table4$Date))
 ```
 
 
-```{r, echo=FALSE, fig.width= 10}
-graph <- dygraph(xx, main = 'Figure 3 - New confirmed covid cases and new confirmed covid deaths') %>%
+```{r, echo=FALSE, fig.width= 10, fig.cap= "New confirmed covid cases and new confirmed covid deaths"}
+graph <- dygraph(xx) %>%
   dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors=RColorBrewer::brewer.pal(3, "Set2")) %>%
   dyLegend(show = "always", hideOnMouseOut = FALSE) %>%
   dyRangeSelector() %>%
@@ -231,9 +245,13 @@ tt <- pivot_longer(cc, cols = Male:Unknown, names_to = c("Gender"))
 
 
 
-```{r, echo=FALSE, fig.width= 10}
-
-fig <- plot_ly(tt, labels = ~Gender, values = ~value, type = 'pie')
+```{r, echo=FALSE, fig.width= 10, fig.cap= "Gender Proportion Pie Chart"}
+colors <- c('rgb(211,94,96)', 'rgb(128,133,133)', 'rgb(144,103,167)')
+fig <- plot_ly(tt, labels = ~Gender, values = ~value, type = 'pie', 
+        textposition = 'inside',
+        textinfo = 'label+percent',
+        insidetextfont = list(color = '#FFFFFF'), marker = list(colors = colors,
+                      line = list(color = '#FFFFFF', width = 0.8)))
 fig <- fig %>% layout(title = 'Gender proportion of Covid cases in Ireland',
          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
@@ -278,7 +296,9 @@ final1 <- gather(final, Age_group, value, Aged1to4:Aged85up, factor_key = TRUE)
 
 
 ```{r,fig.cap= "The distribution of Covid cases across each age groups", echo=FALSE, fig.width= 10}
-plot_ly(final1, x =~Age_group, y =  ~value, showlegend = TRUE) %>% 
+plot_ly(final1, x =~Age_group, y =  ~value, showlegend = TRUE, 
+             marker = list(color = 'rgb(158,202,225)',
+                           line = list(color = 'rgb(8,48,107)', width = 1.5))) %>% 
     add_bars(color = ~"Age_group", text = ~paste('</br> Age_group: ', Age_group,
                       '</br> sum: ', value))
 ```
@@ -307,8 +327,8 @@ xxx <- tablefinal %>% xts(order.by = as.POSIXct(tablefinal$Date))
 ```
 
 
-```{r, echo=FALSE, fig.width= 10}
-graph2 <- dygraph(xxx, main = 'Hospitalised, Healthcare Workers and requiring ICU Covid cases') %>%
+```{r, echo=FALSE, fig.width= 10, fig.cap= "Hospitalised, Healthcare Workers and requiring ICU Covid cases"}
+graph2 <- dygraph(xxx) %>%
   dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors=RColorBrewer::brewer.pal(3, "Set2")) %>%
   dyLegend(show = "always", hideOnMouseOut = FALSE) %>%
   dyRangeSelector() %>%
