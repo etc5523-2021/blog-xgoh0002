@@ -1,7 +1,7 @@
 ---
-title: "🇮🇪 Ireland 🦠"
+title: "🇮🇪 Coronavirus in Ireland 🦠"
 description: |
-  A short description of the post.
+  A short Coronavirus analysis and visualisation for the home of Guinness Beer 🍺
 author:
   - name: Xueqi Goh
     url: https://www.instagram.com/xuxuehgo/?hl=en
@@ -55,7 +55,14 @@ library(xts)
 library(TSstudio)
 ```
 
+🇮🇪🇮🇪🇮🇪 The Republic of Ireland, known as the home of Guinness Beer, is a country with rich history, magical landscape, crowded Irish pubs and well-preserved castles. Like other countries, Ireland is still fighting with the coronavirus.
 
+
+# Data Description 📖
+
+#### Data Source
+
+#### Acknowledgment
 
 ```{r message=FALSE, echo=FALSE}
 county <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/Covid19CountyStatisticsHPSCIrelandOpenData.csv")
@@ -63,34 +70,39 @@ timestamp <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002
 total <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/CovidStatisticsProfileHPSCIrelandOpenData.csv")
 ```
 
-contains Covid-19 Daily Statistics for Ireland by County as reported by the Health Protection Surveillance Centre
+
+# Findings 🔍
+
+Table 1 shows the total confirmed COVID-19 cases in each county in The Republic of Ireland. Data for the 26 counties are recorded. In addition, this table also provides the data of the population proportion covid cases and the population recorded in the Census 2016. It is very clear that Dublin has occupy the first place in the total number of confirmed covid cases, the population proportion covid cases and has the greatest population recorded in the Census 2016.
 
 ```{r, echo=FALSE}
 table1 <- county %>%
-  select(CountyName, ConfirmedCovidCases, PopulationProportionCovidCases, PopulationCensus16) %>%
-  arrange(-ConfirmedCovidCases)
+  select(CountyName, PopulationProportionCovidCases, PopulationCensus16) %>%
+  arrange(-PopulationCensus16)
   
 ```
 
 ```{r table1, echo=FALSE}
-DT::datatable(table1, class = 'cell-border stripe', colnames = c('County Name', 'Confirmed Covid Cases', 'Population Proportion Covid Cases', 'Population Census 16'), caption = 'Table 1 -- Total cummulative confirmed covid cases in each county in Ireland', filter = 'top', options = list( pageLength = 10)) 
+DT::datatable(table1, class = 'cell-border stripe', colnames = c('County Name',  'Population Proportion Covid Cases', 'Population Census 16'), caption = 'Table 1 -- The population each county in Ireland', filter = 'top', options = list( pageLength = 10)) 
 ```
 
+The map below allows us to identify the spread of Coronavirus throughout the whole nation by showing the total confirmed covid cases in Ireland. We can see that Dublin and Cork has the greatest number 
 
 ```{r}
-a <- geojson_sf("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/CovidCounty.geojson")
+a <- geojson_sf("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/cc.geojson")
 ```
 
 
 ```{r, echo=FALSE}
 aa <- a %>% select(CountyName, ConfirmedCovidCases, geometry, ORIGID) %>%
   group_by(CountyName, ORIGID ) %>% 
+  
 summarise(ConfirmedCovidCases = sum(ConfirmedCovidCases))
 ```
 
 ```{r, echo=FALSE}
 
-bins <- c(0, 40000, 80000, 120000, 160000, 200000, Inf)
+bins <- c(0, 2000, 4000, 6000, 10000, 15000, 20000, 30000, 100000, 150000)
 pal <- colorBin("YlOrRd", domain = aa$ConfirmedCovidCases, bins = bins, na.color = "#aaaaaa")
 labels <- sprintf(
   "<strong>%s</strong><br/>%g Confirmed COVID Cases <sup></sup>",
@@ -132,7 +144,7 @@ finaltable3 <- table3 %>%
 
 
 
-```{r figure10, fig.cap= "fff", echo=FALSE}
+```{r figure10, fig.cap= "The distribution of COVID cases across each county in Ireland From March 2020 to Sep 2021", echo=FALSE}
 library(crosstalk)
 tx <- highlight_key(finaltable3)
 text <- list(family = "sans serif",
@@ -167,8 +179,8 @@ xx <- table4 %>% xts(order.by = as.POSIXct(table4$Date))
 
 
 ```{r, echo=FALSE}
-graph <- dygraph(xx, main = 'The time series Covid situation  in Ireland') %>%
-  dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors="#D8AE5A") %>%
+graph <- dygraph(xx, main = 'Figure 3 - New confirmed covid cases and new confirmed covid deaths') %>%
+  dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors=RColorBrewer::brewer.pal(3, "Set2")) %>%
   dyLegend(show = "always", hideOnMouseOut = FALSE) %>%
   dyRangeSelector() %>%
   dyCrosshair(direction = "vertical") %>%
@@ -176,6 +188,9 @@ graph <- dygraph(xx, main = 'The time series Covid situation  in Ireland') %>%
   dyRoller(rollPeriod = 1) 
 graph
 ```
+
+According to Figure 3 above, the orange time series line shwos the confirmed covid cases and the blue line shows the confirmed covid deaths in Ireland from March 2020 to September 2021. First and foremost, the most surprising point, the confirmed covid cases skyrocketed from the end of December and reaches it's peak on 7 of January 2021. Ireland achieved a total of 8348 confirmed covid cases and 20 confirmed covid deaths on 7 January 2021. In my opinion, people in Ireland could got infected due to the celebration of Christmas and New Year. There could be crowds celebrating festivals in public and disobeying the covid rules which will help in preventing infection. Thus, as it takes around 2 weeks to show symptoms of the Coronavirus, people remain unaware and did not quarantine and therefore infect others. This could be the reason causing the serious outbreak in January 2021. At the end of January 2021, the total confirmed covid cases in Ireland started to decrease and did not exceed 1000 cases each day. Perhaps the government has imposed a lockdown or other rules to stop this outbreak.
+Next, starting from the mid of July, the trend of confirmed covid cases in Ireland started to rise again and has reaches it's peak in the mid of August and started to decrease.  
 
 ```{r, echo=FALSE}
 table5 <- total %>%
@@ -204,7 +219,7 @@ tt <- pivot_longer(cc, cols = Male:Unknown, names_to = c("Gender"))
 ```{r, echo=FALSE}
 
 fig <- plot_ly(tt, labels = ~Gender, values = ~value, type = 'pie')
-fig <- fig %>% layout(title = 'Gender proportion ',
+fig <- fig %>% layout(title = 'Gender proportion of Covid cases in Ireland',
          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 
@@ -245,7 +260,7 @@ final1 <- gather(final, Age_group, value, Aged1to4:Aged85up, factor_key = TRUE)
 
 
 
-```{r, echo=FALSE}
+```{r,fig.cap= "The distribution of Covid cases across each age groups", echo=FALSE}
 plot_ly(final1, x =~Age_group, y =  ~value, showlegend = TRUE) %>% 
     add_bars(color = ~"Age_group", text = ~paste('</br> Age_group: ', Age_group,
                       '</br> sum: ', value))
@@ -275,8 +290,8 @@ xxx <- tablefinal %>% xts(order.by = as.POSIXct(tablefinal$Date))
 
 
 ```{r, echo=FALSE}
-graph2 <- dygraph(xxx, main = 'xxx') %>%
-  dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors="#D8AE5A") %>%
+graph2 <- dygraph(xxx, main = 'Hospitalised, Healthcare Workers and requiring ICU Covid cases') %>%
+  dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors=RColorBrewer::brewer.pal(3, "Set2")) %>%
   dyLegend(show = "always", hideOnMouseOut = FALSE) %>%
   dyRangeSelector() %>%
   dyCrosshair(direction = "vertical") %>%
