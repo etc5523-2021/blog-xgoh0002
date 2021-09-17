@@ -36,7 +36,7 @@ body{
 }
 ```
 
-```{r message=FALSE}
+```{r message=FALSE, echo=FALSE}
 library(readr)
 library(dplyr)
 library(tidyverse)
@@ -56,7 +56,8 @@ library(TSstudio)
 ```
 
 
-```{r message=FALSE}
+
+```{r message=FALSE, echo=FALSE}
 county <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/Covid19CountyStatisticsHPSCIrelandOpenData.csv")
 timestamp <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/Covid19CountyStatisticsHPSCIreland.csv")
 total <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/CovidStatisticsProfileHPSCIrelandOpenData.csv")
@@ -64,7 +65,7 @@ total <- read_csv("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/dat
 
 contains Covid-19 Daily Statistics for Ireland by County as reported by the Health Protection Surveillance Centre
 
-```{r}
+```{r, echo=FALSE}
 table1 <- county %>%
   select(CountyName, ConfirmedCovidCases, PopulationProportionCovidCases, PopulationCensus16) %>%
   arrange(-ConfirmedCovidCases)
@@ -81,13 +82,13 @@ a <- geojson_sf("/Users/fairystephanie/Desktop/ETC5523/Blog1/blog-xgoh0002/data/
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 aa <- a %>% select(CountyName, ConfirmedCovidCases, geometry, ORIGID) %>%
   group_by(CountyName, ORIGID ) %>% 
 summarise(ConfirmedCovidCases = sum(ConfirmedCovidCases))
 ```
 
-```{r}
+```{r, echo=FALSE}
 
 bins <- c(0, 40000, 80000, 120000, 160000, 200000, Inf)
 pal <- colorBin("YlOrRd", domain = aa$ConfirmedCovidCases, bins = bins, na.color = "#aaaaaa")
@@ -108,52 +109,64 @@ m <- leaflet(aa) %>% addTiles()  %>% setView(-8,53.6,6) %>%
                                                        padding = "3px 8px"),
                                           textsize = "15px",
                                           direction = "auto")) %>% 
-  addLegend(pal=pal,values=~ConfirmedCovidCases,title = "Ireland Confirmed Covid Cases",position='bottomright')
+  leaflet::addLegend(pal=pal,values=~ConfirmedCovidCases,title = "Ireland Confirmed Covid Cases",position='bottomright')
 
 m
 ```
 
 
 
-```{r}
+```{r, echo=FALSE}
 table3 <- timestamp %>%
   select(CountyName, TimeStamp, ConfirmedCovidCases) %>%
   mutate(Date = as.Date(TimeStamp)) 
 table3[is.na(table3)] = 0
 ```
 
-```{r}
+```{r, echo=FALSE}
 finaltable3 <- table3 %>%
   select(Date, CountyName, ConfirmedCovidCases) %>%
-  group_by(CountyName) %>%
-  filter(CountyName %in% c("Dublin", "Cork", "Donegal", "Limerick", "Galway"))
+  group_by(CountyName) 
 
 ```
 
 
-```{r}
-ggplot(finaltable3, aes(x = Date,
-                        y = ConfirmedCovidCases)) +
- # geom_area(fill="#69b3a2", alpha=0.5) +
-    geom_line(color="#69b3a2") +
-  facet_wrap(~CountyName, ncol = 1, scales = "free") +
-  scale_x_date(date_breaks = "1 month") +
- theme_bw()
+
+```{r figure10, fig.cap= "fff", echo=FALSE}
+library(crosstalk)
+tx <- highlight_key(finaltable3)
+text <- list(family = "sans serif",
+  size = 14,
+  color = toRGB("grey50"))
+
+widgets <- bscols(
+  widths = c(12, 12),
+  filter_select("CountyName", "County Name", tx, ~CountyName)
+  #filter_slider("Date", "Select Date", tx, ~Date)
+  #filter_select("province_territory", "Province Territory", tx, ~province_territory)
+)
+bscols(
+  widths = c(2, 10), widgets, 
+  plot_ly(tx, x = ~Date, y = ~ConfirmedCovidCases, showlegend = TRUE) %>% 
+    add_bars(color = ~CountyName, text = ~paste('</br> CountyName: ', CountyName,
+                      '</br> Date: ', Date,
+                      '</br> ConfirmedCovidCases: ', ConfirmedCovidCases)))
 ```
 
 
-```{r}
+
+```{r, echo=FALSE}
 table4 <- total %>%
   select(Date, ConfirmedCovidCases, ConfirmedCovidDeaths) 
   
 ```
 
-```{r}
+```{r, echo=FALSE}
 xx <- table4 %>% xts(order.by = as.POSIXct(table4$Date))
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 graph <- dygraph(xx, main = 'The time series Covid situation  in Ireland') %>%
   dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors="#D8AE5A") %>%
   dyLegend(show = "always", hideOnMouseOut = FALSE) %>%
@@ -164,7 +177,7 @@ graph <- dygraph(xx, main = 'The time series Covid situation  in Ireland') %>%
 graph
 ```
 
-```{r}
+```{r, echo=FALSE}
 table5 <- total %>%
   select( Male, Female, Unknown)
 table5[is.na(table5)] = 0
@@ -172,7 +185,7 @@ table5[is.na(table5)] = 0
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 cc <- table5 %>%
   mutate(Male = Male - lag(Male, default = Male[1]),
          Female = Female - lag(Female, default = Female[1]),
@@ -182,13 +195,13 @@ cc <- table5 %>%
             Unknown = sum(Unknown))
 ```
 
-```{r}
+```{r, echo=FALSE}
 tt <- pivot_longer(cc, cols = Male:Unknown, names_to = c("Gender")) 
 ```
 
 
 
-```{r}
+```{r, echo=FALSE}
 
 fig <- plot_ly(tt, labels = ~Gender, values = ~value, type = 'pie')
 fig <- fig %>% layout(title = 'Gender proportion ',
@@ -197,5 +210,80 @@ fig <- fig %>% layout(title = 'Gender proportion ',
 
 fig
 ```
+
+
+```{r, echo=FALSE}
+last <- total %>%
+  select(Aged1to4, Aged5to14, Aged15to24, Aged25to34, Aged35to44, Aged45to54, Aged55to64, Aged65to74, Aged75to84, Aged85up)
+last[is.na(last)] = 0
+```
+
+```{r, echo=FALSE}
+final <- last %>%
+mutate(Aged1to4 = Aged1to4 - lag(Aged1to4, default = Aged1to4[1]),
+       Aged5to14 = Aged5to14 - lag(Aged5to14, default = Aged5to14[1]),
+       Aged15to24 = Aged15to24 - lag(Aged15to24, default = Aged15to24[1]),
+       Aged25to34 = Aged25to34 - lag(Aged25to34, default = Aged25to34[1]),
+       Aged35to44 = Aged35to44 - lag(Aged35to44, default = Aged35to44[1]),
+       Aged45to54 = Aged45to54 - lag(Aged45to54, default = Aged45to54[1]),
+       Aged55to64 = Aged55to64 - lag(Aged55to64, default = Aged55to64[1]),
+       Aged65to74 = Aged65to74 - lag(Aged65to74, default = Aged65to74[1]),
+       Aged85up = Aged85up - lag(Aged85up, default = Aged85up[1])) %>%
+  summarise(Aged1to4 = sum(Aged1to4),
+            Aged5to14 = sum(Aged5to14),
+            Aged15to24 = sum(Aged15to24),
+            Aged25to34 = sum(Aged25to34),
+            Aged35to44 = sum(Aged35to44),
+            Aged45to54 = sum(Aged45to54),
+            Aged55to64 = sum(Aged55to64),
+            Aged65to74 = sum(Aged65to74),
+            Aged85up = sum(Aged85up)) 
+  
+#final1 <- final %>% pivot_longer(final, cols = Aged1to4:Aged85up, names_to = c("Age_Groups")) 
+final1 <- gather(final, Age_group, value, Aged1to4:Aged85up, factor_key = TRUE)
+```
+
+
+
+```{r, echo=FALSE}
+plot_ly(final1, x =~Age_group, y =  ~value, showlegend = TRUE) %>% 
+    add_bars(color = ~"Age_group", text = ~paste('</br> Age_group: ', Age_group,
+                      '</br> sum: ', value))
+```
+
+
+
+
+```{r, echo=FALSE}
+tablefinal <- total %>%
+  select(Date, HospitalisedCovidCases, HealthcareWorkersCovidCases, RequiringICUCovidCases) 
+tablefinal[is.na(tablefinal)] = 0
+  
+```
+
+```{r, echo=FALSE}
+tablefinal <- tablefinal %>%
+  mutate(HospitalisedCovidCases = HospitalisedCovidCases - lag(HospitalisedCovidCases, default = HospitalisedCovidCases[1]),
+         HealthcareWorkersCovidCases = HealthcareWorkersCovidCases - lag(HealthcareWorkersCovidCases, default = HealthcareWorkersCovidCases[1]),
+         RequiringICUCovidCases = RequiringICUCovidCases - lag(RequiringICUCovidCases, default = RequiringICUCovidCases[1]))
+```
+
+
+```{r, echo=FALSE}
+xxx <- tablefinal %>% xts(order.by = as.POSIXct(tablefinal$Date))
+```
+
+
+```{r, echo=FALSE}
+graph2 <- dygraph(xxx, main = 'xxx') %>%
+  dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors="#D8AE5A") %>%
+  dyLegend(show = "always", hideOnMouseOut = FALSE) %>%
+  dyRangeSelector() %>%
+  dyCrosshair(direction = "vertical") %>%
+  dyHighlight(highlightCircleSize = 5, highlightSeriesBackgroundAlpha = 0.2, hideOnMouseOut = FALSE)  %>%
+  dyRoller(rollPeriod = 1) 
+graph2
+```
+
 
 
