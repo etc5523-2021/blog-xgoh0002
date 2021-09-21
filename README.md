@@ -2,7 +2,7 @@
 
 
 This is the blog of Xueqi Goh.
-The URL of this blog is staywithstephanie.netlify.app.
+The URL of this blog is https://staywithstephanie.netlify.app.
 
 ## Blog Post 1
 
